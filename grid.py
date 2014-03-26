@@ -38,7 +38,7 @@ def show_animation(animation):
                 animnr = frame[row][col]
                 ledStrip.setPixel(gridnr, animnr)
         ledStrip.update()
-        sleep(0.25)
+        sleep(0.5)
 
 
 def populateGrid():
