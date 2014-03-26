@@ -25,11 +25,13 @@ class RunAnimation(threading.Thread):
     def run(self):
         print("running thread")
         while not self.stop:
-            for frames in self.data:
+            for frame in range(0, len(self.data["frames"])):
                 for row in range(0, 8):
                     for col in range(0, 9):
+                        print "Row: "+str(row)+" Col: "+str(col)
                         gridnr = grid.grid[row][col]
-                        animnr = frames[(9*row)+col]
+                        animnr = self.data["frames"][frame][row][col]
+                        print "gridnr: "+str(gridnr)+" animnr: "+str(animnr)
                         ledStrip.setPixel(gridnr, animnr)
                 ledStrip.update()
                 sleep(self.msperframe)
@@ -60,14 +62,12 @@ def runanimation():
     #jdata = request.form["jdata"]
     if thread is not None:
         thread.stop()
-
-    json_data = open(jdata)
-    data = json.load(json_data)
-    json_data.close()
-    msperframe = 1000/data.config.fps
+    data = json.loads(jdata)
+    msperframe = 1000/data["config"]["fps"]
 
     thread = RunAnimation(data, msperframe)
     thread.start()
+    return "Thread started"
 
 @app.route("/api/animation_save")
 def animation_save(name,jdata):
