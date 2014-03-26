@@ -139,7 +139,7 @@ h1 {
 	position: relative;
 	width: 36px;
 	height: 36px;
-	background: url(../images/select.png);
+    background: url(../images/select.png) no-repeat;
 }
 .lolcolorSelector div {
 	position: absolute;
