@@ -101,6 +101,9 @@
                 $pixel = $('<div>');
                 var temp = x+","+y;
                 $pixel.attr("id",temp);
+                $pixel.attr("x", x);
+                $pixel.attr("y", y);
+
                 $pixel.attr("class", "lolcolorSelector col-sm-1");
 
 
@@ -118,7 +121,11 @@
                         return false;
                     },
                     onChange: function (hsb, hex, rgb) {
-                        $($(GeoIKT.active).children()[0]).css('backgroundColor', '#' + hex);
+                        var globalIKT = $(GeoIKT.active);
+                        $(globalIKT.children()[0]).css('backgroundColor', '#' + hex);
+                        var x = globalIKT.attr('x');
+                        var y = globalIKT.attr('y');
+                        GeoIKT.frame[y][x] = "#" + hex;
                     }
                 });
                 GeoIKT.frame.push(tmpArray);
