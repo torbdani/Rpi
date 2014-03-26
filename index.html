@@ -84,6 +84,7 @@
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script>
     $(function () {
+        window.GeoIKT = {};
         var $container = $('#colorPickerContainer');
 
         var $pixel;
@@ -98,6 +99,7 @@
                     color: '#0000ff',
                     onShow: function (colpkr) {
                         $(colpkr).fadeIn(500);
+                        GeoIKT.active = this;
                         return false;
                     },
                     onHide: function (colpkr) {
@@ -105,7 +107,8 @@
                         return false;
                     },
                     onChange: function (hsb, hex, rgb) {
-                        $('#'+x+y+' div').css('backgroundColor', '#' + hex);
+                        console.log($(GeoIKT.active));
+                        $(GeoIKT.active).css('backgroundColor', '#' + hex);
                     }
                 });
 
