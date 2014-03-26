@@ -33,7 +33,6 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,6 +65,10 @@
 
     <div id="colorPickerContainer"></div>
 
+
+    <button type="button" class="btn btn-default btn-lg" id="sendToPi">
+        <span class="glyphicon glyphicon-star"></span> Send to Pi
+    </button>
 
 
 </div>
@@ -124,14 +127,25 @@
             }
             $container.append($row);
         }
+
+        $('#sendToPi').click(function () {
+            var btn = $(this)
+            btn.button('loading')
+            console.log("HookeCooken");
+            btn.button('reset');
+            /*$.ajax(...).always(function () {
+                btn.button('reset')
+            });*/
+        });
     });
 
 
-//32x14
 
 
 </script>
 
 
+
 </body>
+
 </html>
