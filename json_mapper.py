@@ -16,28 +16,27 @@ thread = None
 
 
 class RunAnimation(threading.Thread):
-    def __init__(self, data, msperframe):
+    def __init__(self, data, spf):
         super(RunAnimation, self).__init__()
         self.data = data
-        self.msperframe = msperframe
-        self.stop = 0
+        self.spf = spf
+        self.stoprequest = threading.Event()
 
     def run(self):
         print("running thread")
-        while not self.stop:
+        while not self.stoprequest.isSet():
             for frame in range(0, len(self.data["frames"])):
                 for row in range(0, 8):
                     for col in range(0, 9):
-                        print "Row: "+str(row)+" Col: "+str(col)
                         gridnr = grid.grid[row][col]
                         animnr = self.data["frames"][frame][row][col]
-                        print "gridnr: "+str(gridnr)+" animnr: "+str(animnr)
-                        ledStrip.setPixel(gridnr, animnr)
+                        ledStrip.setPixel(gridnr, grid.hex_to_rgb(animnr))
                 ledStrip.update()
-                sleep(self.msperframe)
+                sleep(self.spf)
 
-    def stop(self):
-        self.stop = 1
+    def stop(self, timeout=None):
+        self.stoprequest.set()
+        super(RunAnimation, self).join(timeout)
 
 
 def main():
@@ -63,9 +62,9 @@ def runanimation():
     if thread is not None:
         thread.stop()
     data = json.loads(jdata)
-    msperframe = 1000/data["config"]["fps"]
-
-    thread = RunAnimation(data, msperframe)
+    spf = float(1)/float(data["config"]["fps"])
+    print "SPF: " + str(spf)
+    thread = RunAnimation(data, spf)
     thread.start()
     return "Thread started"
 
