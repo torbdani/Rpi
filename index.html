@@ -70,9 +70,6 @@
     <div id="colorPickerContainer"></div>
 
 
-    <div id="colorSelector">
-        <div style="background-color: #0000ff">
-    </div>
 
 
 </div>
@@ -87,9 +84,9 @@
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script>
     $(function () {
-        var $container = $('container');
+        var $container = $('#colorPickerContainer');
 
-        var $pixel = $('<div>');
+        var $pixel = $('<div class="lolcolorSelector">');
 
         $pixel.ColorPicker({
             color: '#0000ff',
@@ -106,7 +103,7 @@
             }
         });
 
-        $container.add($pixel);
+        $container.append($pixel);
     });
 
 
