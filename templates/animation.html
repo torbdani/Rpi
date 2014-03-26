@@ -88,22 +88,17 @@
 
         var $pixel;
         var $row;
-        GeoIKT.frame = [];
-        var tmpArray;
+
+
 
         for(var y=0;y<8;y++){
             $row = $('<div>');
             $row.attr("class", "col-sm-12 row");
-            tmpArray = [];
             for(var x=0;x<9;x++){
-                tmpArray.push("#000000");
                 var $innerdiv = $('<div>');
                 $pixel = $('<div>');
                 var temp = x+","+y;
                 $pixel.attr("id",temp);
-                $pixel.attr("x", x);
-                $pixel.attr("y", y);
-
                 $pixel.attr("class", "lolcolorSelector col-sm-1");
 
 
@@ -121,18 +116,12 @@
                         return false;
                     },
                     onChange: function (hsb, hex, rgb) {
-                        var globalIKT = $(GeoIKT.active);
-                        $(globalIKT.children()[0]).css('backgroundColor', '#' + hex);
-                        var x = globalIKT.attr('x');
-                        var y = globalIKT.attr('y');
-                        GeoIKT.frame[y][x] = "#" + hex;
+                        $($(GeoIKT.active).children()[0]).css('backgroundColor', '#' + hex);
                     }
                 });
-
                 $row.append($pixel);
                 /*$container.append($pixel);*/
             }
-            GeoIKT.frame.push(tmpArray);
             $container.append($row);
         }
 
@@ -142,8 +131,8 @@
             console.log("HookeCooken");
             btn.button('reset');
             /*$.ajax(...).always(function () {
-                btn.button('reset')
-            });*/
+             btn.button('reset')
+             });*/
         });
     });
 

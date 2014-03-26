@@ -38,7 +38,7 @@ def show_animation(animation):
                 animnr = frame[row][col]
                 ledStrip.setPixel(gridnr, animnr)
         ledStrip.update()
-        sleep(0.25)
+        sleep(0.5)
 
 
 def populateGrid():
@@ -73,7 +73,7 @@ def get_animation(filename):
 
 
 def hex_to_rgb(hexvalue):
-    return struct.unpack('BBB', hexvalue.decode('hex'))
+    return struct.unpack('BBB', (hexvalue.encode('utf-8').translate(None, "#").decode('hex')))
 
 
 def clear_all():
