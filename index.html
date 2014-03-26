@@ -128,10 +128,11 @@
                         GeoIKT.frame[y][x] = "#" + hex;
                     }
                 });
-                GeoIKT.frame.push(tmpArray);
+
                 $row.append($pixel);
                 /*$container.append($pixel);*/
             }
+            GeoIKT.frame.push(tmpArray);
             $container.append($row);
         }
 
