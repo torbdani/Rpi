@@ -159,18 +159,21 @@
         var $row;
 
 
-        var $innerdiv = $('<div>');
 
         for(var y=0;y<8;y++){
             $row = $('<div>');
             $row.attr("class", "col-sm-12");
             for(var x=0;x<7;x++){
+                var $innerdiv = $('<div>');
                 $pixel = $('<div>');
                 var temp = x+","+y;
                 console.log(temp);
                 $pixel.attr("id",temp);
                 $pixel.attr("class", "lolcolorSelector col-sm-1");
+
+
                 $pixel.append($innerdiv);
+
                 $pixel.ColorPicker({
                     color: '#0000ff',
                     onShow: function (colpkr) {
