@@ -135,6 +135,10 @@ h1 {
 	margin-top: 16px;
 }
 
+.row{
+    height: 100px;
+}
+
 .lolcolorSelector {
 	position: relative;
 	width: 36px;
