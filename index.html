@@ -85,13 +85,15 @@
 
         var $pixel;
         var $row;
-
-
+        GeoIKT.frame = [];
+        var tmpArray;
 
         for(var y=0;y<8;y++){
             $row = $('<div>');
             $row.attr("class", "col-sm-12 row");
+            tmpArray = [];
             for(var x=0;x<9;x++){
+                tmpArray.push("#000000");
                 var $innerdiv = $('<div>');
                 $pixel = $('<div>');
                 var temp = x+","+y;
@@ -116,6 +118,7 @@
                         $($(GeoIKT.active).children()[0]).css('backgroundColor', '#' + hex);
                     }
                 });
+                GeoIKT.frame.push(tmpArray);
                 $row.append($pixel);
                 /*$container.append($pixel);*/
             }
