@@ -17,19 +17,93 @@ logger = logging.getLogger('grid')
 
 ledStrip = LedStrip_WS2801(75)
 
-def main():
-    print alphabet_json_file
-    parse_letters(alphabet_json_file)
+animation = []
+xlen=9
+ylen=8
+alphabet=[]
+
+def load():
+    a = parse_letters(alphabet_json_file)
+    if len(alphabet) > 0:
+        del alphabet[:]
+    for y in range(0,len(a)):
+        alphabet.append(a[y])
     populateGrid()
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        logger.debug("Using file: " + filename)
-        animation = get_animation(filename)
-    else:
-        animation = get_animation('test.anim')
+
+def set_animation(animstring,color,bgcolor):
+    print "set_animation(" + animstring+","+color +","+bgcolor+")"
+    anim = []
+    #
+    # frame=[]
+    # for x in xlen:
+    #     for y in ylen:
+    anim.append(get_background_frame(bgcolor))
+    anim.append(get_background_frame(bgcolor))
+
+
+    left_shift(get_background_frame(bgcolor),animstring,color)
+
+
+    anim.append(get_background_frame(bgcolor))
+    anim.append(get_background_frame(bgcolor))
+    anim.append(get_background_frame(bgcolor))
+    anim.append(get_background_frame(bgcolor))
+    anim.append(get_background_frame(bgcolor))
+    clear_all()
+    if len(animation) > 0:
+        del animation[:]
+
+    for y in range(0,len(anim)):
+        animation.append(anim[y])
 
     while 1:
         show_animation(animation)
+
+def left_shift(startframe,animstring,color):
+    anim = []
+    initframe = startframe
+    letters = []
+    # for letter in animstring:
+    #     letters.append(alphabet[letter])
+    letters.append(alphabet) #A
+    for num in range(0,len(letters[0])):
+        nextframe = shift_one_left(initframe)
+        for y in range(0,ylen):
+            if (y>1&y<7):
+                nextframe[xlen-1][y]=letters[num][y-2]
+        anim.append(nextframe)
+    animation.append(anim)
+
+
+
+
+
+
+
+    #
+    #
+    # framenumber = 0
+    # for row in range (0,ylen):
+    #     for col in range (0, xlen):
+    #         if (y>1&y<7):
+
+
+def shift_one_left(list):
+    newlist=[]
+    for row in range(0,ylen):
+        innerlist = list[row]
+        newlist.append(innerlist[1:])
+    return newlist
+
+def get_background_frame(bgcolor):
+    frame=[]
+    for x in range(0,ylen):
+        tmp = []
+        for y in range(0,xlen):
+            tmp.append(hex_to_rgb(bgcolor))
+        frame.append(tmp)
+    frame.reverse()
+    return frame
 
 def get_animation(filename):
     anim = []
@@ -65,8 +139,8 @@ def cleanup():
 
 def show_animation(animation):
     for frame in animation:
-        for row in range(0, 8):
-            for col in range(0, 9):
+        for row in range(0, ylen):
+            for col in range(0, xlen):
                 gridnr = grid[row][col]
                 animnr = frame[row][col]
                 ledStrip.setPixel(gridnr, animnr)
@@ -92,11 +166,10 @@ def parse_letters(filename):
     # for row in data['A']:
     for i in range(0, rowLength):
         for j in range(0, columnHeight):
-            print data['A'][j][i]
+            var = data['A'][j][i]
 
-        print ""
     json_data.close()
+    return data['A']
 
-
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
