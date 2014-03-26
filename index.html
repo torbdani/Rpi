@@ -86,25 +86,36 @@
     $(function () {
         var $container = $('#colorPickerContainer');
 
-        var $pixel = $('<div class="lolcolorSelector">');
+        var $pixel;
 
-        $pixel.ColorPicker({
-            color: '#0000ff',
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onChange: function (hsb, hex, rgb) {
-                $('#colorSelector div').css('backgroundColor', '#' + hex);
+        var $innerdiv = $('<div>');
+        for(var x=0;x<8;x++){
+            for(var y=0;y<7;y++){
+                $pixel = $('<div class="lolcolorSelector">');
+                $pixel.attr("id",x+y);
+                $pixel.append($innerdiv);
+                $pixel.ColorPicker({
+                    color: '#0000ff',
+                    onShow: function (colpkr) {
+                        $(colpkr).fadeIn(500);
+                        return false;
+                    },
+                    onHide: function (colpkr) {
+                        $(colpkr).fadeOut(500);
+                        return false;
+                    },
+                    onChange: function (hsb, hex, rgb) {
+                        $('#'+x+y+' div').css('backgroundColor', '#' + hex);
+                    }
+                });
+
+                $container.append($pixel);
             }
-        });
-
-        $container.append($pixel);
+        }
     });
+
+
+
 
 
 </script>
