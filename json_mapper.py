@@ -68,21 +68,24 @@ def runanimation():
     thread.start()
     return "Thread started"
 
-@app.route("/api/animation_save")
-def animation_save(name,jdata):
+@app.route("/api/saveanimation")
+def saveanimation():
+    name = request.args.get('name', '')
+    jdata = request.args.get('jdata', '')
     myFile = open('json/'+name+'.json', 'w')
     myFile.write(jdata)
     myFile.close()
 
-@app.route("/api/animation_load")
-def animation_load(name):
+@app.route("/api/loadanimation")
+def loadanimation():
+    name = request.args.get('name', '')
     myFile = open('json/'+name+'.json', 'r')
     jdata = myFile.read()
     myFile.close()
     return jdata
 
-@app.route("/api/animation_list")
-def animation_run():
+@app.route("/api/listanimation")
+def listanimation():
 
     files = [f for f in listdir('json/') if isfile(join('/json/', f))]
     return files
