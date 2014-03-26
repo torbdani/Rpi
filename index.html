@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,8 +11,9 @@
 
 
     <!-- CSS and JS for the colorpicker. -->
-    <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css" />
-    <script type="text/javascript" src="js/colorpicker.js"></script>
+    <link rel="stylesheet" media="screen" type="text/css" href="css/colorpicker.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="css/layout.css"/>
+
 
     <title>Tool for RPi</title>
 
@@ -22,78 +24,91 @@
     <link href="index_files/starter-template.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#colorpicker">Colorpicker</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#colorpicker">Colorpicker</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Bootstrap starter template</h1>
+
+        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a
+            mostly barebones HTML document.</p>
     </div>
 
-    <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
+    <div id="colorPickerContainer"></div>
 
 
 
-            <div id="colorSelector"><div style="background-color: #0000ff"></div></div>
+
+</div>
+<!-- /.container -->
 
 
-    </div><!-- /.container -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="index_files/jquery.js"></script>
+<script src="index_files/bootstrap.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+<script>
+    $(function () {
+        var $container = $('#colorPickerContainer');
+
+        var $pixel = $('<div class="lolcolorSelector">');
+
+        $pixel.ColorPicker({
+            color: '#0000ff',
+            onShow: function (colpkr) {
+                $(colpkr).fadeIn(500);
+                return false;
+            },
+            onHide: function (colpkr) {
+                $(colpkr).fadeOut(500);
+                return false;
+            },
+            onChange: function (hsb, hex, rgb) {
+                $('#colorSelector div').css('backgroundColor', '#' + hex);
+            }
+        });
+
+        $container.append($pixel);
+    });
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="index_files/jquery.js"></script>
-    <script src="index_files/bootstrap.js"></script>
-      <script>
-          $(document)
-          {
+</script>
 
-              $('#colorSelector').ColorPicker({
-                  color: '#0000ff',
-                  onShow: function (colpkr) {
-                      $(colpkr).fadeIn(500);
-                      return false;
-                  },
-                  onHide: function (colpkr) {
-                      $(colpkr).fadeOut(500);
-                      return false;
-                  },
-                  onChange: function (hsb, hex, rgb) {
-                      $('#colorSelector div').css('backgroundColor', '#' + hex);
-                  }
-              });
-          }
-      </script>
-  
 
-</body></html>
+</body>
+</html>

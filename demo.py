@@ -84,8 +84,8 @@ def cleanup():
 ledStrip = LedStrip_WS2801(75)
 
 while 1:
-     # rainbowAll(ledStrip, 200, 0.1)
-    antialisedPoint(ledStrip, [255, 0, 0], 1, 0.3, 0.01)
+    rainbowAll(ledStrip, 200, 0.1)
+    # antialisedPoint(ledStrip, [255, 0, 0], 1, 0.3, 0.01)
     # rainbowAll(ledStrip, 200, 0.1)
     # antialisedPoint(ledStrip, [0, 255, 0], 0.5, 0.3, 0.01)
     # rainbowAll(ledStrip, 200, 0.1)
